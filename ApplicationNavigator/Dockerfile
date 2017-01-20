@@ -1,4 +1,4 @@
-FROM base-ss:oracle6-tomcat7-java7
+FROM base-ss:ol6-tomcat7-java7
 MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 
-COPY applicationNavigator.war /kusr/local/tomcat/webapps/applicationNavigator.war
+COPY applicationNavigator.war /usr/local/tomcat/webapps/applicationNavigator.war

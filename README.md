@@ -18,6 +18,26 @@ docker build -t base-ss:ol6-tomcat8-java8 base-ss/ol6-tomcat8-java8 .
 These containers are designed to behind a load balancer and should not be connected to directly.
 
 
+## Example with Application Navigator
+
+1. Build base-ss image
+
+    ```
+    docker build -t base-ss:ol6-tomcat7-java7 base-ss/ol6-tomcat7-java7/.
+    ```
+
+2. Copy built applicationNavigator.war into applicationNavigator/
+3. Build Application Navigator
+
+  ```
+  docker build -t applicationNavigator:2.0.1 ApplicationNavigator/. ```
+
+4. Run container
+
+ ```
+ docker run -e "BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod" -e "BANPROXY_PASSWORD=password" -e "TIMEZONE=America/Denver" appliationNavigator:2.0.1 -d
+ ```
+
 ## Banner XE Self Service applications
 
 There are currently two base-ss images base-ss:ol6-tomcat7-java7 and base-ss:ol6-tomcat8-java8, this is to be compliant with Ellucian's applications server requirements.
@@ -28,27 +48,27 @@ JAVA_HOME is /opt/jre-home
 
 ### Required Environmental Variables
 
-BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
+* BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
 BANPROXY_PASSWORD=password
 
-BANSSUSER_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
+* BANSSUSER_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
 BANSSUSER_PASSWORD=password
 
 
 ### Optional Environmental Variables
-TIMEZONE=America/Denver
-XMS=2048m
-XMX=4g
-MAXPERMSIZE=384m
-BANPROXY_INITIALSIZE=5
-BANPROXY_MAXACTIVE=100
-BANPROXY_MAXIDLE=-1
-BANPROXY_MAXWAIT=30000
-BANSSUSER_INITIALSIZE=5
-BANSSUSER_MAXACTIVE=100
-BANSSUSER_MAXIDLE=-1
-BANSSUSER_MAXWAIT=30000
-LOGFILEDIR=/usr/local/tomcat/logs
+* TIMEZONE=America/Denver
+* XMS=2048m
+* XMX=4g
+* MAXPERMSIZE=384m
+* BANPROXY_INITIALSIZE=5
+* BANPROXY_MAXACTIVE=100
+* BANPROXY_MAXIDLE=-1
+* BANPROXY_MAXWAIT=30000
+* BANSSUSER_INITIALSIZE=5
+* BANSSUSER_MAXACTIVE=100
+* BANSSUSER_MAXIDLE=-1
+* BANSSUSER_MAXWAIT=30000
+* LOGFILEDIR=/usr/local/tomcat/logs
 
 ### Volumes
 
@@ -60,23 +80,23 @@ There are two locations that you will want to create attach a volume for photos 
 
 ### Required Environmental Variables
 
-BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
+* BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
 BANPROXY_PASSWORD=password
 
 ### Optional Enviornmental Variables
-TIMEZONE=America/Denver
-XMS=2048m
-XMX=4g
-MAXPERMSIZE=384m
-BANPROXY_INITIALSIZE=5
-BANPROXY_MAXACTIVE=100
-BANPROXY_MAXIDLE=-1
-BANPROXY_MAXWAIT=30000
-BANSSUSER_INITIALSIZE=5
-BANSSUSER_MAXACTIVE=100
-BANSSUSER_MAXIDLE=-1
-BANSSUSER_MAXWAIT=30000
-LOGFILEDIR=/usr/local/tomcat/logs
+* TIMEZONE=America/Denver
+* XMS=2048m
+* XMX=4g
+* MAXPERMSIZE=384m
+* BANPROXY_INITIALSIZE=5
+* BANPROXY_MAXACTIVE=100
+* BANPROXY_MAXIDLE=-1
+* BANPROXY_MAXWAIT=30000
+* BANSSUSER_INITIALSIZE=5
+* BANSSUSER_MAXACTIVE=100
+* BANSSUSER_MAXIDLE=-1
+* BANSSUSER_MAXWAIT=30000
+* LOGFILEDIR=/usr/local/tomcat/logs
 
 
 
