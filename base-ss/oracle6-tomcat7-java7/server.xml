@@ -45,18 +45,31 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
-    <Resource name="jdbc/bannerDataSource" auth="Container" type="javax.sql.DataSource"
+
+    <Resource name="jdbc/bannerDataSource"
+              auth="Container"
+              type="javax.sql.DataSource"
               driverClassName="oracle.jdbc.OracleDriver"
               url="${banproxy.jdbc.url}"
               username="banproxy" password="${banproxy.password}"
-              initialSize="${banproxy.initialsize}" maxActive="${banproxy.maxactive}" maxIdle="${banproxy.maxidle}" maxWait="${banproxy.maxwait}"
+              initialSize="${banproxy.initialsize}"
+              maxActive="${banproxy.maxactive}"
+              maxIdle="${banproxy.maxidle}"
+              maxWait="${banproxy.maxwait}"
               validationQuery="select 1 from dual"
               testOnBorrow="true"/>
-    <Resource name="jdbc/bannerSsbDataSource" auth="Container" type="javax.sql.DataSource"
+
+    <Resource name="jdbc/bannerSsbDataSource"
+              auth="Container"
+              type="javax.sql.DataSource"
               driverClassName="oracle.jdbc.OracleDriver"
               url="${banssuser.jdbc.url}"
-              username="ban_ss_user" password="${banssuser.password}"
-              initialSize="${banssuser.initialsize}" maxActive="${banssuser.maxactive}" maxIdle="${banssuser.maxidle}" maxWait="${banssuser.maxwait}"
+              username="ban_ss_user"
+              password="${banssuser.password}"
+              initialSize="${banssuser.initialsize}"
+              maxActive="${banssuser.maxactive}"
+              maxIdle="${banssuser.maxidle}"
+              maxWait="${banssuser.maxwait}"
               validationQuery="select 1 from dual"
               testOnBorrow="true"/>
 
