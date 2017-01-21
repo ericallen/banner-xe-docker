@@ -44,6 +44,7 @@
               description="User database that can be updated and saved"
               factory="org.apache.catalina.users.MemoryUserDatabaseFactory"
               pathname="conf/tomcat-users.xml" />
+
     <Resource name="jdbc/bannerDataSource" auth="Container"
               type="javax.sql.DataSource"
               driverClassName="oracle.jdbc.OracleDriver"
@@ -55,7 +56,9 @@
               maxIdle="${banproxy.maxidle}"
               maxWaitMillis="${banproxy.maxwait}"
               validationQuery="select 1 from dual"
-              accessToUnderlyingConnectionAllowed="true" testOnBorrow="true"/>
+              accessToUnderlyingConnectionAllowed="true"
+              testOnBorrow="true" />
+
     <Resource name="jdbc/bannerSsbDataSource" auth="Container"
               type="javax.sql.DataSource"
               driverClassName="oracle.jdbc.OracleDriver"
@@ -67,7 +70,8 @@
               maxIdle="${banssuser.maxidle}"
               maxWaitMillis="${banssuser.maxwait}"
               validationQuery="select 1 from dual"
-              accessToUnderlyingConnectionAllowed="true" testOnBorrow="true"/>
+              accessToUnderlyingConnectionAllowed="true"
+              testOnBorrow="true" />
 
 
  </GlobalNamingResources>
