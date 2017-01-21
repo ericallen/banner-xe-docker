@@ -81,11 +81,15 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
     -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT
 
-    COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
-    COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar
-    COPY context.xml /usr/local/tomcat/conf/context.xml
-    COPY server.xml /usr/local/tomcat/conf/server.xml
+RUN curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+    http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
+    -o ${CATALINA_HOME}/lib/ojdbc6.jar \
+    && chown -R tomcat:tomcat $CATALINA_HOME
 
-    EXPOSE 8080
-    USER tomcat
-    CMD ["catalina.sh", "run"]
+COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar
+COPY context.xml /usr/local/tomcat/conf/context.xml
+COPY server.xml /usr/local/tomcat/conf/server.xml
+
+EXPOSE 8080
+USER tomcat
+CMD ["catalina.sh", "run"]
