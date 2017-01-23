@@ -52,14 +52,20 @@ ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOM
 
 
 RUN set -x \
-  && curl -fSL $TOMCAT_TGZ_URL -o tomcat.tar.gz \
-        && curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
-        && gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
-        && tar -xvf tomcat.tar.gz --strip-components=1 \
-        && rm bin/*.bat \
-        && rm tomcat.tar.gz* \
-  && rm -rf webapps/* \
-  && chown -R tomcat:tomcat $CATALINA_HOME
+    && curl -fSL $TOMCAT_TGZ_URL -o tomcat.tar.gz \
+    && curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
+    && gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
+    && tar -xvf tomcat.tar.gz --strip-components=1 \
+    && rm bin/*.bat \
+    && rm tomcat.tar.gz* \
+    && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
+      -o ${CATALINA_HOME}/lib/ojdbc6.jar \
+    && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/xdb6.jar \
+      -o ${CATALINA_HOME}/lib/xdb6.jar \
+    && rm -rf webapps/* \
+    && chown -R tomcat:tomcat $CATALINA_HOME
 
 RUN mkdir -p /opt/xe/images && chown -R tomcat:tomcat /opt/xe
 
@@ -93,8 +99,6 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanssuser.maxidle=\$BANSSUSER_MAXIDLE \
     -Dbanssuser.maxwait=\$BANSSUSER_MAXACTIVE
 
-COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
-COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar
 COPY context.xml /usr/local/tomcat/conf/context.xml
 COPY server.xml /usr/local/tomcat/conf/server.xml
 
