@@ -58,6 +58,12 @@ RUN set -x \
         && rm bin/*.bat \
         && rm tomcat.tar.gz* \
   && rm -rf webapps/* \
+  && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
+      -o ${CATALINA_HOME}/lib/ojdbc6.jar \
+  && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/xdb6.jar \
+      -o ${CATALINA_HOME}/lib/xdb6.jar \
   && chown -R tomcat:tomcat $CATALINA_HOME
 
 ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
@@ -77,14 +83,6 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanproxy.maxactive=\$BANPROXY_MAXACTIVE \
     -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
     -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT \
-
-RUN curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
-    -o ${CATALINA_HOME}/lib/ojdbc6.jar \
-    && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-    http://download.oracle.com/otn/utilities_drivers/jdbc/11204/xdb6.jar \
-    -o ${CATALINA_HOME}/lib/xdb6.jar \
-    && chown -R tomcat:tomcat $CATALINA_HOME
 
 COPY context.xml /usr/local/tomcat/conf/context.xml
 COPY server.xml /usr/local/tomcat/conf/server.xml
