@@ -1,18 +1,19 @@
 # Banner XE Dockerfiles
 
 ## Quickstart guide
-1. build base images
+1. Download and place ojdbc6.jar and xdb6.jar in each of the base image directories you want to use.  
+2. build base images
 ```
 docker build -t base-admin:ol6-tomcat7-java7 base-admin/ol6-tomcat7-java7 .
 docker build -t base-admin:ol6-tomcat8-java8 base-admin/ol6-tomcat8-java8 .
 docker build -t base-ss:ol6-tomcat7-java7 base-ss/ol6-tomcat7-java7 .
 docker build -t base-ss:ol6-tomcat8-java8 base-ss/ol6-tomcat8-java8 .
 ```
-2. Build XE application through ESM or Manually
-3. Move build war file into corresponding directory
-4. Build XE application docker image
-5. Run container with ENV config
-6. Connect in LB
+3. Build XE application through ESM or Manually
+4. Move build war file into corresponding directory
+5. Build XE application docker image
+6. Run container with ENV config
+7. Connect in LB
 
 
 These containers are designed to behind a load balancer and should not be connected to directly.
