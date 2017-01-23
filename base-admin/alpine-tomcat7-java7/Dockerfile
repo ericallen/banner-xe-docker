@@ -1,21 +1,20 @@
-#Dockerfil for base BannerSelfService application apline, oraclejava 8 and tomcat8
+#Dockerfil for base BannerSelfService application apline, oraclejava 7 and tomcat7
 FROM alpine
 MAINTAINER "Eric Allen <eric.allen@usu.edu>"
+
+ENV JAVA_VERSION=7u79 \
+    JAVA_BNUMBER=15 \
+    JAVA_SEMVER=1.7.0_79 \
+    JAVA_HOME=/usr/lib/jvm/java-1.7-openjdk/jre \
+    TIMEZONE=America/Denver
 
 RUN apk update \
     && apk add curl gnupg
 
-ENV JAVA_VERSION=8u121 \
-    JAVA_BNUMBER=13 \
-    JAVA_SEMVER=1.8.0_121 \
-    JAVA_HOME=/opt/jre-home \
-    JAVA_RANDOM=e9e7ea248e2c4826b92b3f075a80e441 \
-    TIMEZONE=America/Denver
-
 RUN cd / \
     && mkdir /opt \
     && curl --header "Cookie: oraclelicense=accept-securebackup-cookie" -fSL \
-    http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b$JAVA_BNUMBER/$JAVA_RANDOM/server-jre-$JAVA_VERSION-linux-x64.tar.gz \
+    http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b$JAVA_BNUMBER/server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     -o server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     && tar -zxvf server-jre-$JAVA_VERSION-linux-x64.tar.gz -C /opt \
     && rm server-jre-$JAVA_VERSION-linux-x64.tar.gz \
@@ -28,7 +27,7 @@ RUN mkdir -p "$CATALINA_HOME" && chown tomcat:tomcat "$CATALINA_HOME"
 WORKDIR $CATALINA_HOME
 
 # see https://www.apache.org/dist/tomcat/tomcat-8/KEYS
-RUN  for key in \
+RUN for key in \
                 05AB33110949707C93A279E3D3EFE6B686867BA6 \
                 07E48665A34DCAFAE522E5E6266191C37C037D42 \
                 47309207D818FFD8DCD3F83F1931D684307A10A5 \
@@ -46,12 +45,12 @@ RUN  for key in \
                 gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
         done
 
-ENV TOMCAT_MAJOR=8
-ENV TOMCAT_VERSION=8.0.39
+ENV TOMCAT_MAJOR=7
+ENV TOMCAT_VERSION=7.0.73
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
-RUN set -x \
-    && curl -fSL $TOMCAT_TGZ_URL -o tomcat.tar.gz \
+
+RUN curl -fSL $TOMCAT_TGZ_URL -o tomcat.tar.gz \
     && curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
     && gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
     && tar -xvf tomcat.tar.gz --strip-components=1 \
@@ -59,11 +58,11 @@ RUN set -x \
     && rm tomcat.tar.gz* \
     && rm -rf webapps/* \
     && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
-      -o ${CATALINA_HOME}/lib/ojdbc6.jar \
+    http://download.oracle.com/otn/utilities_drivers/jdbc/11204/ojdbc6.jar \
+    -o ${CATALINA_HOME}/lib/ojdbc6.jar \
     && curl -fSL --header "Cookie: oraclelicense=accept-securebackup-cookie" \
-      http://download.oracle.com/otn/utilities_drivers/jdbc/11204/xdb6.jar \
-      -o ${CATALINA_HOME}/lib/xdb6.jar \
+    http://download.oracle.com/otn/utilities_drivers/jdbc/11204/xdb6.jar \
+    -o ${CATALINA_HOME}/lib/xdb6.jar \
     && chown -R tomcat:tomcat $CATALINA_HOME
 
 RUN mkdir -p /opt/xe/images && chown -R tomcat:tomcat /opt/xe
@@ -77,12 +76,6 @@ ENV XMS=2048m \
     BANPROXY_MAXACTIVE=100 \
     BANPROXY_MAXIDLE=-1 \
     BANPROXY_MAXWAIT=30000 \
-    BANSSUSER_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
-    BANSSUSER_PASSWORD=password \
-    BANSSUSER_INITIALSIZE=5 \
-    BANSSUSER_MAXACTIVE=100 \
-    BANSSUSER_MAXIDLE=-1 \
-    BANSSUSER_MAXWAIT=30000 \
     LOGFILEDIR=/usr/local/tomcat/logs
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
@@ -93,12 +86,6 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanproxy.maxactive=\$BANPROXY_MAXACTIVE \
     -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
     -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT \
-    -Dbanssuser.jdbc.url=\$BANSSUSER_JDBC_URL \
-    -Dbanssuser.password=\$BANSSUSER_PASSWORD \
-    -Dbanssuser.initialsize=\$BANSSUSER_INITIALSIZE \
-    -Dbanssuser.maxactive=\$BANSSUSER_MAXACTIVE \
-    -Dbanssuser.maxidle=\$BANSSUSER_MAXIDLE \
-    -Dbanssuser.maxwait=\$BANSSUSER_MAXACTIVE \
     -DlogFileDir=\$LOGFILEDIR
 
 COPY context.xml /usr/local/tomcat/conf/context.xml

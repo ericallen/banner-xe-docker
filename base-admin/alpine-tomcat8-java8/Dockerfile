@@ -77,12 +77,6 @@ ENV XMS=2048m \
     BANPROXY_MAXACTIVE=100 \
     BANPROXY_MAXIDLE=-1 \
     BANPROXY_MAXWAIT=30000 \
-    BANSSUSER_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
-    BANSSUSER_PASSWORD=password \
-    BANSSUSER_INITIALSIZE=5 \
-    BANSSUSER_MAXACTIVE=100 \
-    BANSSUSER_MAXIDLE=-1 \
-    BANSSUSER_MAXWAIT=30000 \
     LOGFILEDIR=/usr/local/tomcat/logs
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
@@ -93,12 +87,6 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanproxy.maxactive=\$BANPROXY_MAXACTIVE \
     -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
     -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT \
-    -Dbanssuser.jdbc.url=\$BANSSUSER_JDBC_URL \
-    -Dbanssuser.password=\$BANSSUSER_PASSWORD \
-    -Dbanssuser.initialsize=\$BANSSUSER_INITIALSIZE \
-    -Dbanssuser.maxactive=\$BANSSUSER_MAXACTIVE \
-    -Dbanssuser.maxidle=\$BANSSUSER_MAXIDLE \
-    -Dbanssuser.maxwait=\$BANSSUSER_MAXACTIVE \
     -DlogFileDir=\$LOGFILEDIR
 
 COPY context.xml /usr/local/tomcat/conf/context.xml
