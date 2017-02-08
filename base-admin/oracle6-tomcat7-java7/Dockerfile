@@ -4,8 +4,6 @@ MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 
 RUN yum install tar -y
 
-RUN yes | cp /usr/share/zoneinfo/America/Denver /etc/localtime
-
 ENV JAVA_VERSION=7u79 \
     JAVA_BNUMBER=15 \
     JAVA_SEMVER=1.7.0_79 \
