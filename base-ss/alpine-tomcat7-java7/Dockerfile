@@ -76,7 +76,10 @@ ENV XMS=2048m \
     BANSSUSER_MAXACTIVE=100 \
     BANSSUSER_MAXIDLE=-1 \
     BANSSUSER_MAXWAIT=30000 \
-    LOGFILEDIR=/usr/local/tomcat/logs
+    LOGFILEDIR=/usr/local/tomcat/logs \
+    SCHEME=https \
+    PROXY_PORT=443 \
+    PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
@@ -92,7 +95,10 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanssuser.maxactive=\$BANSSUSER_MAXACTIVE \
     -Dbanssuser.maxidle=\$BANSSUSER_MAXIDLE \
     -Dbanssuser.maxwait=\$BANSSUSER_MAXACTIVE \
-    -DlogFileDir=\$LOGFILEDIR
+    -DlogFileDir=\$LOGFILEDIR \
+    -Dscheme=\$SCHEME \
+    -Dproxy.port=\$PROXY_PORT \
+    -Dproxy.name=\$PROXY_NAME
 
 COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
 COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar

@@ -69,7 +69,10 @@ ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     BANPROXY_MAXACTIVE=100 \
     BANPROXY_MAXIDLE=-1 \
     BANPROXY_MAXWAIT=30 \
-    LOGFILEDIR=/usr/local/tomcat/logs
+    LOGFILEDIR=/usr/local/tomcat/logs \
+    SCHEME=https
+    PROXY_PORT=443 \
+    PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
@@ -79,7 +82,10 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \
     -Dbanproxy.maxactive=\$BANPROXY_MAXACTIVE \
     -Dbanproxy.maxidle=\$BANPROXY_MAXIDLE \
-    -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT
+    -Dbanproxy.maxwait=\$BANPROXY_MAXWAIT \
+    -Dscheme=\$SCHEME \
+    -Dproxy.port=\$PROXY_PORT \
+    -Dproxy.name=\$PROXY_NAME
 
 COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
 COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar

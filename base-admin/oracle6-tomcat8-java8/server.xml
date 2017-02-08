@@ -82,8 +82,9 @@
          Define a non-SSL HTTP/1.1 Connector on port 8080
     -->
     <Connector port="8080" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               redirectPort="8443" />
+     connectionTimeout="20000"
+     URIEncoding="UTF-8" scheme="${scheme}"
+     proxyPort="${proxy.port}" proxyName="${proxy.name}"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
     <Connector executor="tomcatThreadPool"

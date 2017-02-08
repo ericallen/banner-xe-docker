@@ -81,7 +81,8 @@
                redirectPort="8443" />-->
         <Connector port="8080" protocol="HTTP/1.1"
          connectionTimeout="20000"
-         URIEncoding="UTF-8" scheme="https"  proxyPort="443"/>
+         URIEncoding="UTF-8" scheme="${scheme}"
+         proxyPort="${proxy.port}" proxyName="${proxy.name}"/>
 
     <!-- A "Connector" using the shared thread pool-->
     <!--
