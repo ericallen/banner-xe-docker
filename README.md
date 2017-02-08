@@ -66,6 +66,9 @@ JAVA_HOME is /opt/jre-home
 * BANSSUSER_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
 * BANSSUSER_PASSWORD=password
 
+* SCHEME=https
+* PROXY_PORT=443
+* PROXY_NAME=host.example.edu
 
 ### Optional Environmental Variables
 * TIMEZONE=America/Denver
@@ -98,6 +101,10 @@ There are two locations that you will want to create attach a volume for photos 
 
 * BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod
 * BANPROXY_PASSWORD=password
+
+* SCHEME=https
+* PROXY_PORT=443
+* PROXY_NAME=host.example.edu
 
 ### Optional Environmental Variables
 * TIMEZONE=America/Denver
