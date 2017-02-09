@@ -16,7 +16,7 @@ RUN cd / \
     && curl --header "Cookie: oraclelicense=accept-securebackup-cookie" -fSL \
     http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b$JAVA_BNUMBER/$JAVA_RANDOM/server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     -o server-jre-$JAVA_VERSION-linux-x64.tar.gz \
-    && tar -zxvf server-jre-$JAVA_VERSION-linux-x64.tar.gz -C /opt \
+    && tar -zxf server-jre-$JAVA_VERSION-linux-x64.tar.gz -C /opt \
     && rm server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     && ln -s /opt/jdk$JAVA_SEMVER/ /opt/jre-home;
 
@@ -73,7 +73,7 @@ ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
 
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
+    -Dlog4j.configuration=config.properties -Xms=\$XMS -Xmx=\$XMX \
     -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
     -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \

@@ -17,7 +17,7 @@ RUN cd / \
     && curl --header "Cookie: oraclelicense=accept-securebackup-cookie" -fSL \
     http://download.oracle.com/otn-pub/java/jdk/$JAVA_VERSION-b$JAVA_BNUMBER/server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     -o server-jre-$JAVA_VERSION-linux-x64.tar.gz \
-    && tar -zxvf server-jre-$JAVA_VERSION-linux-x64.tar.gz -C /opt \
+    && tar -zxf server-jre-$JAVA_VERSION-linux-x64.tar.gz -C /opt \
     && rm server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     && ln -s /opt/jdk$JAVA_SEMVER/ /opt/jre-home;
 
@@ -54,7 +54,7 @@ ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOM
 RUN curl -fSL $TOMCAT_TGZ_URL -o tomcat.tar.gz \
     && curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
     && gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
-    && tar -xvf tomcat.tar.gz --strip-components=1 \
+    && tar -xf tomcat.tar.gz --strip-components=1 \
     && rm bin/*.bat \
     && rm tomcat.tar.gz* \
     && rm -rf webapps/* \
@@ -83,7 +83,7 @@ ENV XMS=2048m \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
+    -Dlog4j.configuration=config.properties -Xms=\$XMS -Xmx=\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
     -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \

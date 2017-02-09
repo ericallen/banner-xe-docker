@@ -81,7 +81,7 @@ ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
+    -Dlog4j.configuration=config.properties -Xms=\$XMS -Xmx=\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE \
     -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
