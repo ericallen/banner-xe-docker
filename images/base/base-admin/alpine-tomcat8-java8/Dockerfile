@@ -77,7 +77,7 @@ ENV XMS=2048m \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms=\$XMS -Xmx=\$XMX \
+    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
     -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \

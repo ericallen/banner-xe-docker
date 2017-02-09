@@ -63,7 +63,10 @@ RUN set -x \
 
 RUN mkdir -p /opt/xe/images && chown -R tomcat:tomcat /opt/xe
 
-ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
+ENV XMS=2048m \
+    XMX=4g \
+    MAXPERMSIZE=384m \
+    BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     BANPROXY_PASSWORD=password \
     BANPROXY_INITIALSIZE=5 \
     BANPROXY_MAXACTIVE=100 \
@@ -81,7 +84,7 @@ ENV BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms=\$XMS -Xmx=\$XMX \
+    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE \
     -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
