@@ -2,8 +2,8 @@
 
 TOMCAT7=7.0.75
 JAVA7=7u79
-TOMCAT8=8u121
-JAVA8=8.0.41
+TOMCAT8=8.0.41
+JAVA8=8u121
 
 echo "Building XE-BASE-SS Oracle Linux 6 & Tomcat7 & Java 7"
 docker build -t ericallen/xe-base-ss:ol6-tomcat7-java7 -t ericallen/xe-base-ss:ol6-tomcat${TOMCAT7}-java${JAVA7}  base-ss/oracle6-tomcat7-java7/.

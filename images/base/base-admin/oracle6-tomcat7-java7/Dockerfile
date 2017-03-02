@@ -71,7 +71,7 @@ ENV XMS=2048m \
     BANPROXY_MAXIDLE=-1 \
     BANPROXY_MAXWAIT=30 \
     LOGFILEDIR=/usr/local/tomcat/logs \
-    SCHEME=https
+    SCHEME=https \
     PROXY_PORT=443 \
     PROXY_NAME=host.example.edu
 
