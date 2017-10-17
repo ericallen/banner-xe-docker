@@ -5,11 +5,11 @@ MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 RUN apk update \
     && apk add curl gnupg
 
-ENV JAVA_VERSION=8u121 \
-    JAVA_BNUMBER=13 \
-    JAVA_SEMVER=1.8.0_121 \
+ENV JAVA_VERSION=8u144 \
+    JAVA_BNUMBER=01 \
+    JAVA_SEMVER=1.8.0_144 \
     JAVA_HOME=/opt/jre-home \
-    JAVA_RANDOM=e9e7ea248e2c4826b92b3f075a80e441 \
+    JAVA_RANDOM=090f390dda5b47b9b721c7dfaa008135 \
     TIMEZONE=America/Denver
 
 RUN cd / \
@@ -47,7 +47,7 @@ RUN  for key in \
         done
 
 ENV TOMCAT_MAJOR=8
-ENV TOMCAT_VERSION=8.0.41
+ENV TOMCAT_VERSION=8.0.47
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 RUN set -x \
