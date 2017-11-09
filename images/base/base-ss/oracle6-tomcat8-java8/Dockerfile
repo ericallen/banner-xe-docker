@@ -6,11 +6,11 @@ MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 RUN yum install tar -y
 
 
-ENV JAVA_VERSION=8u144 \
-    JAVA_BNUMBER=01 \
-    JAVA_SEMVER=1.8.0_144 \
+ENV JAVA_VERSION=8u151 \
+    JAVA_BNUMBER=12 \
+    JAVA_SEMVER=1.8.0_151 \
     JAVA_HOME=/opt/jre-home \
-    JAVA_RANDOM=090f390dda5b47b9b721c7dfaa008135 \
+    JAVA_RANDOM=e758a0de34e24606bca991d704f6dcbf \
     TIMEZONE=America/Denver
 
 RUN cd / \
@@ -21,6 +21,7 @@ RUN cd / \
     && rm server-jre-$JAVA_VERSION-linux-x64.tar.gz \
     && ln -s /opt/jdk$JAVA_SEMVER/ /opt/jre-home;
 
+ENV PATH=$PATH:$JAVA_HOME/bin
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
 RUN groupadd -r tomcat && useradd -r -g tomcat tomcat
@@ -65,7 +66,7 @@ RUN mkdir -p /opt/xe/images && chown -R tomcat:tomcat /opt/xe
 
 ENV XMS=2048m \
     XMX=4g \
-    MAXPERMSIZE=384m \
+    MAXPERMSIZE=512m \
     BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     BANPROXY_PASSWORD=password \
     BANPROXY_INITIALSIZE=5 \
@@ -84,7 +85,7 @@ ENV XMS=2048m \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
+    -Xms\$XMS -Xmx\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE \
     -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
@@ -103,7 +104,7 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dproxy.port=\$PROXY_PORT \
     -Dproxy.name=\$PROXY_NAME
 
-COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
+COPY ojdbc7.jar /usr/local/tomcat/lib/ojdbc6.jar
 COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar
 COPY context.xml /usr/local/tomcat/conf/context.xml
 COPY server.xml /usr/local/tomcat/conf/server.xml
