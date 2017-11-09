@@ -1,17 +1,19 @@
 #Dockerfil for base BannerSelfService application apline, oraclejava 8 and tomcat8
-FROM alpine
+FROM alpine:3.6
 MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 
-RUN apk update \
-    && apk add curl gnupg
+RUN apk --update add curl ca-certificates tar gnupg && \
+    curl -Ls https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.26-r0/glibc-2.26-r0.apk -o /tmp/glibc-2.26-r0.apk && \
+    apk add --allow-untrusted /tmp/glibc-2.26-r0.apk
 
-ENV JAVA_VERSION=8u144 \
-    JAVA_BNUMBER=01 \
-    JAVA_SEMVER=1.8.0_144 \
+ENV JAVA_VERSION=8u151 \
+    JAVA_BNUMBER=12 \
+    JAVA_SEMVER=1.8.0_151 \
     JAVA_HOME=/opt/jre-home \
-    JAVA_RANDOM=090f390dda5b47b9b721c7dfaa008135 \
+    JAVA_RANDOM=e758a0de34e24606bca991d704f6dcbf \
     TIMEZONE=America/Denver
 
+ENV PATH=$PATH:$JAVA_HOME/bin
 RUN cd / \
     && mkdir /opt \
     && curl --header "Cookie: oraclelicense=accept-securebackup-cookie" -fSL \
@@ -64,7 +66,7 @@ RUN mkdir -p /opt/xe/images && chown -R tomcat:tomcat /opt/xe
 
 ENV XMS=2048m \
     XMX=4g \
-    MAXPERMSIZE=384m \
+    MAXPERMSIZE=512m \
     BANPROXY_JDBC_URL=jdbc:oracle:thin:@//oracle.example.edu:1521/prod \
     BANPROXY_PASSWORD=password \
     BANPROXY_INITIALSIZE=5 \
@@ -83,7 +85,7 @@ ENV XMS=2048m \
     PROXY_NAME=host.example.edu
 
 ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
-    -Dlog4j.configuration=config.properties -Xms\$XMS -Xmx\$XMX \
+    -Xms\$XMS -Xmx\$XMX \
     -XX:MaxPermSize=\$MAXPERMSIZE -Dbanproxy.jdbc.url=\$BANPROXY_JDBC_URL \
     -Dbanproxy.password=\$BANPROXY_PASSWORD \
     -Dbanproxy.initialsize=\$BANPROXY_INITIALSIZE \
@@ -101,7 +103,7 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dproxy.port=\$PROXY_PORT \
     -Dproxy.name=\$PROXY_NAME
 
-COPY ojdbc6.jar /usr/local/tomcat/lib/ojdbc6.jar
+COPY ojdbc7.jar /usr/local/tomcat/lib/ojdbc6.jar
 COPY xdb6.jar /usr/local/tomcat/lib/xdb6.jar
 COPY context.xml /usr/local/tomcat/conf/context.xml
 COPY server.xml /usr/local/tomcat/conf/server.xml

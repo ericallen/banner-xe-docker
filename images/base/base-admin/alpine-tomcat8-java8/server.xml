@@ -57,20 +57,6 @@
               validationQuery="select 1 from dual"
               accessToUnderlyingConnectionAllowed="true"
               testOnBorrow="true"/>
-    <Resource name="jdbc/bannerSsbDataSource" auth="Container"
-              type="javax.sql.DataSource"
-              driverClassName="oracle.jdbc.OracleDriver"
-              url="${banssuser.jdbc.url}"
-              username="ban_ss_user"
-              password="${banssuser.password}"
-              initialSize="${banssuser.initialsize}"
-              maxTotal="${banssuser.maxactive}"
-              maxIdle="${banssuser.maxidle}"
-              maxWaitMillis="${banssuser.maxwait}"
-              validationQuery="select 1 from dual"
-              accessToUnderlyingConnectionAllowed="true"
-              testOnBorrow="true"/>
-
 
  </GlobalNamingResources>
 
