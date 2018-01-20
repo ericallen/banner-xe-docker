@@ -4,11 +4,11 @@ MAINTAINER "Eric Allen <eric.allen@usu.edu>"
 
 RUN yum install tar -y
 
-ENV JAVA_VERSION=8u151 \
+ENV JAVA_VERSION=8u156 \
     JAVA_BNUMBER=12 \
-    JAVA_SEMVER=1.8.0_151 \
+    JAVA_SEMVER=1.8.0_156 \
     JAVA_HOME=/opt/jre-home \
-    JAVA_RANDOM=e758a0de34e24606bca991d704f6dcbf \
+    JAVA_RANDOM=2f38c3b165be4555a1fa6e98c45e0808 \
     TIMEZONE=America/Denver
 
 
@@ -47,7 +47,7 @@ RUN  for key in \
         done
 
 ENV TOMCAT_MAJOR=8
-ENV TOMCAT_VERSION=8.0.47
+ENV TOMCAT_VERSION=8.0.48
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 
@@ -88,7 +88,7 @@ ENV JAVA_OPTS -Duser.timezone=\$TIMEZONE \
     -Dproxy.port=\$PROXY_PORT \
     -Dproxy.name=\$PROXY_NAME
 
-COPY ojdbc7.jar /usr/local/tomcat/lib/ojdbc6.jar
+COPY ojdbc7.jar /usr/local/tomcat/lib/ojdbc7.jar
 COPY context.xml /usr/local/tomcat/conf/context.xml
 COPY server.xml /usr/local/tomcat/conf/server.xml
 
