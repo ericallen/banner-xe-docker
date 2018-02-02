@@ -3,7 +3,7 @@ Example Dockerfiles for Banner XE applications.  Base images using Oracle Linux 
 
 
 ## Quickstart guide
-1. Download and place ojdbc6.jar and xdb6.jar in each of the base image directories you want to use.
+1. Download and place ojdbc6.jar (if you are using tomcat 7) or ojdbc7.jar (if you are using tomcat 8), and xdb6.jar in each of the base image directories you want to use.
 2. build base images
   * Oracle Linux 6 images
 ```
